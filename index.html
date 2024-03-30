@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Import Data Collection</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .add-vehicle-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .add-vehicle-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="submit.php" method="post" id="importForm">
+            <h2>Vehicle Import Data Collection Form</h2>
+            <fieldset>
+                <legend>Importer Information</legend>
+                <label for="importer_name">Importer's Name:</label>
+                <select name="importer_name" id="importer_name" onchange="toggleOtherImporter()">
+                    <option value="">Select Importer's Name</option>
+                    <option value="Importer1">Importer 1</option>
+                    <option value="Importer2">Importer 2</option>
+                    <!-- Add more importers as needed -->
+                    <option value="Other">Other</option>
+                </select>
+                <input type="text" name="other_importer_name" id="other_importer_name" placeholder="Other Importer's Name" style="display: none;">
+                <label for="importer_contact">Importer's Contact Information:</label>
+                <input type="text" name="importer_contact" id="importer_contact" required>
+                <label for="importer_address">Importer's Address:</label>
+                <input type="text" name="importer_address" id="importer_address" required>
+                <label for="import_date">Date of Import:</label>
+                <input type="date" name="import_date" id="import_date">
+            </fieldset>
+
+            <fieldset>
+                <legend>Vehicle Information</legend>
+                <label for="vehicle_vin">Vehicle VIN / Chassis No.:</label>
+                <input type="text" name="vehicle_vin" id="vehicle_vin" required>
+                <label for="vehicle_make">Vehicle Make:</label>
+                <input type="text" name="vehicle_make" id="vehicle_make" required>
+                <label for="vehicle_model">Vehicle Model:</label>
+                <input type="text" name="vehicle_model" id="vehicle_model" required>
+                <label for="vehicle_year">Vehicle Year:</label>
+                <input type="number" name="vehicle_year" id="vehicle_year" required>
+                <label for="vehicle_type">Vehicle Type:</label>
+                <select name="vehicle_type" id="vehicle_type" onchange="toggleBatteryCapacity()">
+                    <option value="">Select Vehicle Type</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Hybrid">Hybrid</option>
+                    <option value="Gasoline">Gasoline</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Hybrid Petrol">Hybrid Petrol</option>
+                    <option value="Hybrid Diesel">Hybrid Diesel</option>
+                    <option value="Plug-in Hybrid">Plug-in Hybrid</option>
+                </select>
+                <div id="battery_capacity_field" style="display: none;">
+                    <label for="battery_capacity">Battery Capacity:</label>
+                    <input type="text" name="battery_capacity" id="battery_capacity">
+                </div>
+                <label for="vehicle_registration">Vehicle Registration Number:</label>
+                <input type="text" name="vehicle_registration" id="vehicle_registration">
+                <label for="odometer_reading">Odometer Reading:</label>
+                <input type="number" name="odometer_reading" id="odometer_reading" required>
+                <select name="odometer_unit" id="odometer_unit">
+                    <option value="km">Kilometers</option>
+                    <option value="miles">Miles</option>
+                </select>
+                <label for="country_of_origin">Country of Origin:</label>
+                <input type="text" name="country_of_origin" id="country_of_origin">
+                <label for="body_type">Body Type:</label>
+                <select name="body_type" id="body_type">
+                    <option value="Pick-up">Pick-up</option>
+                    <option value="Convertible">Convertible</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="Hatchback">Hatchback</option>
+                    <option value="Van">Van</option>
+                    <option value="Mini Bus">Mini Bus</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Other">Other</option>
+                </select>
+                <label for="vehicle_use">Use:</label>
+                <select name="vehicle_use" id="vehicle_use">
+                    <option value="Commercial">Commercial</option>
+                    <option value="Public Transport">Public Transport</option>
+                    <option value="Industrial">Industrial</option>
+                    <option value="Private">Private</option>
+                    <option value="Hire">Hire</option>
+                </select>
+                <label for="seats">Seats:</label>
+                <select name="seats" id="seats">
+                    <option value="2">2</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="7">7</option>
+                    <option value="9">9</option>
+                    <option value="Other">Other</option>
+                </select>
+            </fieldset>
+
+            <input type="submit" value="Submit">
+            <button type="button" onclick="addAnotherVehicle()" class="add-vehicle-button">Add Another Vehicle</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleOtherImporter() {
+            var importerSelect = document.getElementById("importer_name");
+            var otherImporterInput = document.getElementById("other_importer_name");
+
+            if (importerSelect.value === "Other") {
+                otherImporterInput.style.display = "block";
+            } else {
+                otherImporterInput.style.display = "none";
+            }
+        }
+
+        function toggleBatteryCapacity() {
+            var vehicleTypeSelect = document.getElementById("vehicle_type");
+            var batteryCapacityField = document.getElementById("battery_capacity_field");
+
+            if (vehicleTypeSelect.value === "Electric" || vehicleTypeSelect.value === "Plug-in Hybrid") {
+                batteryCapacityField.style.display = "block";
+            } else {
+                batteryCapacityField.style.display = "none";
+            }
+        }
+
+        function addAnotherVehicle() {
+            document.getElementById("importForm").reset();
+            // Optionally, you can add code to handle additional functionality when adding another vehicle
+        }
+    </script>
+</body>
+</html>
